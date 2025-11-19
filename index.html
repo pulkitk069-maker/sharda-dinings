@@ -8,10 +8,10 @@
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
     
     <style>
-        /* --- LUXURY THEME SETTINGS --- */
+        /* --- PROFESSIONAL LUXURY THEME --- */
         :root {
             --primary: #0f172a; /* Royal Blue */
-            --gold: #c5a059;    /* Gold */
+            --gold: #c5a059;    /* Luxury Gold */
             --white: #ffffff;
             --light-gray: #f8f9fa;
             --text: #333;
@@ -63,13 +63,13 @@
         }
         @media (max-width: 768px) { .nav-links { display: none; } }
 
-        /* --- HERO SECTION (Main Photo) --- */
+        /* --- HERO SECTION (Fixed Text Visibility) --- */
         .hero {
-            /* Updated with User Image 1 */
-            background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://i.postimg.cc/yxtrZMgJ/Screenshot-2025-11-19-22-09-17-221-com-google-android-apps-maps.png');
+            /* Dark Overlay added (0.7) so text pops on image */
+            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('https://i.postimg.cc/prTg8Qs3/Screenshot-2025-11-19-22-10-29-454-com-google-android-apps-maps.png');
             background-size: cover;
             background-position: center;
-            height: 80vh;
+            height: 85vh;
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -78,53 +78,80 @@
             color: var(--white);
             padding: 20px;
         }
-        .hero h1 { font-size: 2.5rem; margin-bottom: 10px; color: var(--white); border-bottom: 3px solid var(--gold); display: inline-block; }
-        .hero p { font-size: 1.2rem; max-width: 600px; margin-bottom: 20px; color: #ddd; }
-        .cta-btn {
-            background: var(--gold); color: var(--primary); padding: 12px 30px;
-            text-decoration: none; font-weight: bold; border-radius: 5px;
-            transition: 0.3s;
+        .hero h1 { 
+            font-size: 2.8rem; margin-bottom: 15px; color: var(--white); 
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5); /* Shadow for better reading */
+            border-bottom: 3px solid var(--gold); display: inline-block; 
         }
-        .cta-btn:hover { transform: scale(1.05); }
+        .hero p { 
+            font-size: 1.2rem; max-width: 600px; margin-bottom: 30px; color: #f0f0f0; 
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
+        }
+        .cta-btn {
+            background: var(--gold); color: var(--primary); padding: 15px 35px;
+            text-decoration: none; font-weight: bold; border-radius: 5px;
+            transition: 0.3s; text-transform: uppercase; letter-spacing: 1px;
+        }
+        .cta-btn:hover { transform: scale(1.05); background: #b8944d; }
 
         /* --- SECTIONS --- */
         .section { padding: 60px 20px; max-width: 1100px; margin: auto; }
         .text-center { text-align: center; }
-        .section-title { font-size: 2rem; margin-bottom: 10px; }
-        .divider { height: 3px; width: 60px; background: var(--gold); margin: 0 auto 40px auto; }
+        .section-title { font-size: 2.2rem; margin-bottom: 10px; }
+        .divider { height: 3px; width: 70px; background: var(--gold); margin: 0 auto 40px auto; }
 
         /* --- ABOUT SECTION --- */
-        .about-container { display: flex; flex-wrap: wrap; gap: 30px; align-items: center; }
+        .about-container { display: flex; flex-wrap: wrap; gap: 40px; align-items: center; }
         .about-text { flex: 1; min-width: 300px; font-size: 1.1rem; color: #555; }
         .about-img { flex: 1; min-width: 300px; }
-        .about-img img { width: 100%; border-radius: 10px; box-shadow: 0 5px 15px rgba(0,0,0,0.2); }
+        .about-img img { width: 100%; border-radius: 10px; box-shadow: 0 10px 20px rgba(0,0,0,0.15); }
 
-        /* --- GALLERY GRID --- */
+        /* --- MENU HIGHLIGHTS (ADDED BACK) --- */
+        .menu-preview {
+            display: flex; flex-wrap: wrap; gap: 20px; justify-content: center; margin-top: 30px;
+        }
+        .menu-item {
+            background: var(--white); border: 1px solid #eee; padding: 20px;
+            width: 100%; max-width: 480px; display: flex; justify-content: space-between; align-items: center;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.02); transition: 0.3s;
+        }
+        .menu-item:hover { transform: translateX(5px); border-left: 4px solid var(--gold); }
+        .dish-name h4 { margin: 0; font-size: 1.1rem; color: var(--primary); font-weight: 700; }
+        .dish-desc { font-size: 0.85rem; color: #888; }
+        .price-tag { color: var(--gold); font-weight: bold; font-size: 0.9rem; text-transform: uppercase; }
+
+        /* --- GALLERY GRID (FIXED SIZING) --- */
         .gallery-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 15px;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); /* Equal Grid */
+            gap: 20px;
         }
-        .gallery-item { overflow: hidden; border-radius: 10px; height: 250px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); }
+        .gallery-item { overflow: hidden; border-radius: 8px; height: 260px; box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
         .gallery-item img {
-            width: 100%; height: 100%; object-fit: cover; transition: transform 0.4s;
+            width: 100%; height: 100%; object-fit: cover; /* Ensures images are not stretched */
+            transition: transform 0.4s;
         }
         .gallery-item img:hover { transform: scale(1.05); }
 
         /* --- SERVICES --- */
         .services-bg { background: var(--light-gray); }
-        .cards-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; }
+        .cards-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 25px; }
         .card {
-            background: var(--white); padding: 30px; text-align: center;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.05); border-radius: 10px;
-            border-bottom: 4px solid transparent; transition: 0.3s;
+            background: var(--white); padding: 35px 25px; text-align: center;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.05); border-radius: 10px;
+            border-top: 4px solid transparent; transition: 0.3s;
         }
-        .card:hover { border-bottom: 4px solid var(--gold); transform: translateY(-5px); }
-        .icon { font-size: 2.5rem; color: var(--gold); margin-bottom: 15px; }
+        .card:hover { border-top: 4px solid var(--gold); transform: translateY(-5px); }
+        .icon { font-size: 2.5rem; color: var(--gold); margin-bottom: 20px; }
 
         /* --- STATS --- */
-        .stats { background: var(--primary); color: white; padding: 40px; text-align: center; display: flex; justify-content: space-around; flex-wrap: wrap; }
+        .stats { background: var(--primary); color: white; padding: 50px 20px; text-align: center; display: flex; justify-content: space-around; flex-wrap: wrap; gap: 30px; }
         .stat-box h2 { color: var(--gold); font-size: 2.5rem; margin: 0; }
+        .stat-box p { opacity: 0.8; letter-spacing: 1px; }
+
+        /* --- CONTACT --- */
+        .contact-info p { font-size: 1.1rem; margin-bottom: 15px; display: flex; align-items: center; gap: 15px; }
+        .contact-info i { color: var(--gold); font-size: 1.2rem; }
         
         /* --- FOOTER --- */
         footer { background: #111; color: #aaa; text-align: center; padding: 30px; }
@@ -146,8 +173,9 @@
             <div class="logo">Sharda Dinings</div>
             <nav class="nav-links">
                 <a href="#about">About</a>
-                <a href="#gallery">Gallery</a>
+                <a href="#menu">Menu</a>
                 <a href="#services">Services</a>
+                <a href="#gallery">Gallery</a>
                 <a href="#contact">Contact</a>
             </nav>
         </div>
@@ -170,17 +198,63 @@
                 <br>
                 <p>We offer a perfect blend of delicious Multi-Cuisine food, a grand <strong>Banquet Hall</strong> for your celebrations, and luxury <strong>Rooms</strong> for a comfortable stay.</p>
                 <br>
-                <p>✨ <strong>Rated 4.5/5 Stars</strong> by happy customers.</p>
+                <p>✨ <strong>Rated 4.5/5 Stars</strong> on Zomato & MapQuest.</p>
             </div>
             <div class="about-img">
-                <img src="https://i.postimg.cc/BbkwKrLT/Screenshot-2025-11-19-22-09-35-837-com-google-android-apps-maps.png" alt="Interior">
+                <img src="https://i.postimg.cc/BbkwKrLT/Screenshot-2025-11-19-22-09-35-837-com-google-android-apps-maps.png" alt="Sharda Dinings Interior">
             </div>
+        </div>
+    </div>
+
+    <div class="section" id="menu" style="background-color: #fff;">
+        <div class="text-center">
+            <h2 class="section-title">Signature Delicacies</h2>
+            <div class="divider"></div>
+            <p style="color: #666; margin-bottom: 20px;">Handpicked favorites from our chefs.</p>
+        </div>
+        
+        <div class="menu-preview">
+            <div class="menu-item">
+                <div class="dish-name">
+                    <h4>Butter Chicken</h4>
+                    <div class="dish-desc">Rich creamy gravy, highly recommended.</div>
+                </div>
+                <div class="price-tag">Chef Special</div>
+            </div>
+
+            <div class="menu-item">
+                <div class="dish-name">
+                    <h4>Paneer Lababdar</h4>
+                    <div class="dish-desc">Soft cottage cheese in tomato onion gravy.</div>
+                </div>
+                <div class="price-tag">Bestseller</div>
+            </div>
+
+            <div class="menu-item">
+                <div class="dish-name">
+                    <h4>Chicken 65</h4>
+                    <div class="dish-desc">Spicy, deep-fried chicken dish (Sichuan style).</div>
+                </div>
+                <div class="price-tag">Starter</div>
+            </div>
+            
+             <div class="menu-item">
+                <div class="dish-name">
+                    <h4>Veg Hakka Noodles</h4>
+                    <div class="dish-desc">Classic Indo-Chinese delight.</div>
+                </div>
+                <div class="price-tag">Popular</div>
+            </div>
+        </div>
+        
+        <div class="text-center" style="margin-top: 40px;">
+            <a href="https://wa.me/918726827777?text=Hello%20Sharda%20Dinings,%20Please%20send%20me%20the%20full%20menu%20PDF" class="cta-btn" style="font-size: 0.9rem; background: transparent; border: 2px solid var(--gold); color: var(--primary);">Request Full Menu PDF</a>
         </div>
     </div>
 
     <div class="section services-bg" id="services">
         <div class="text-center">
-            <h2 class="section-title">Our Services</h2>
+            <h2 class="section-title">Our Facilities</h2>
             <div class="divider"></div>
         </div>
         <div class="cards-container">
@@ -209,23 +283,23 @@
         </div>
         <div class="gallery-grid">
             <div class="gallery-item">
-                <img src="https://i.postimg.cc/yxtrZMgJ/Screenshot-2025-11-19-22-09-17-221-com-google-android-apps-maps.png" alt="Exterior">
+                <img src="https://i.postimg.cc/yxtrZMgJ/Screenshot-2025-11-19-22-09-17-221-com-google-android-apps-maps.png" alt="Exterior Day">
             </div>
             <div class="gallery-item">
-                <img src="https://i.postimg.cc/BbkwKrLT/Screenshot-2025-11-19-22-09-35-837-com-google-android-apps-maps.png" alt="Interior">
+                <img src="https://i.postimg.cc/BbkwKrLT/Screenshot-2025-11-19-22-09-35-837-com-google-android-apps-maps.png" alt="Interior Dining">
             </div>
             <div class="gallery-item">
-                <img src="https://i.postimg.cc/gjQBZCXP/Screenshot-2025-11-19-22-09-54-953-com-google-android-apps-maps.png" alt="Details">
+                <img src="https://i.postimg.cc/gjQBZCXP/Screenshot-2025-11-19-22-09-54-953-com-google-android-apps-maps.png" alt="Banquet Hall">
             </div>
             <div class="gallery-item">
-                <img src="https://i.postimg.cc/prTg8Qs3/Screenshot-2025-11-19-22-10-29-454-com-google-android-apps-maps.png" alt="Facilities">
+                <img src="https://i.postimg.cc/prTg8Qs3/Screenshot-2025-11-19-22-10-29-454-com-google-android-apps-maps.png" alt="Exterior Night">
             </div>
         </div>
     </div>
 
     <div class="stats">
-        <div class="stat-box"><h2>4.5</h2><p>Rating</p></div>
-        <div class="stat-box"><h2>100+</h2><p>Capacity</p></div>
+        <div class="stat-box"><h2>4.5</h2><p>Star Rating</p></div>
+        <div class="stat-box"><h2>100+</h2><p>Seating Capacity</p></div>
         <div class="stat-box"><h2>11PM</h2><p>Open Till</p></div>
     </div>
 
@@ -233,15 +307,16 @@
         <div class="text-center">
             <h2 class="section-title">Visit Us</h2>
             <div class="divider"></div>
-            <p style="font-size:1.2rem; margin-bottom: 20px;">
-                📍 Opp. Kust Seva Ashram, NH 29, Rajendra Nagar, Gorakhpur - 273015
-            </p>
-            <a href="tel:+918726827777" class="cta-btn" style="background: var(--primary); color: white;">📞 Call: +91 87268 27777</a>
+            <div class="contact-info" style="justify-content: center; display: inline-block; text-align: left;">
+                <p><i class="fas fa-map-marker-alt"></i> Opp. Kust Seva Ashram, NH 29, Rajendra Nagar, Gorakhpur</p>
+                <p><i class="fas fa-phone-alt"></i> +91 87268 27777</p>
+                <p><i class="fas fa-clock"></i> 11:00 AM – 11:00 PM</p>
+            </div>
         </div>
         <br><br>
         <iframe 
             src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d14255.397968872638!2d83.3528835!3d26.7174189!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3991437a3f0467d7%3A0x9209e9e12309c2d6!2sSharda%20Dinings!5e0!3m2!1sen!2sin!4v1700000000000!5m2!1sen!2sin" 
-            width="100%" height="350" style="border:0; border-radius:10px;" allowfullscreen="" loading="lazy">
+            width="100%" height="350" style="border:0; border-radius:10px; box-shadow: 0 5px 15px rgba(0,0,0,0.1);" allowfullscreen="" loading="lazy">
         </iframe>
     </div>
 
