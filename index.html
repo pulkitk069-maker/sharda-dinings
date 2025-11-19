@@ -3,193 +3,286 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sharda Dinings | Premium Restaurant & Banquet</title>
+    <title>Sharda Dinings | Order & Book</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
-        /* --- LUXURY THEME SETTINGS --- */
+        /* --- ZOMATO/SWIGGY STYLE CSS --- */
         :root {
-            --gold: #D4AF37;
-            --dark-red: #6e0909;
-            --black: #1a1a1a;
-            --cream: #f9f7f2;
+            --primary: #E23744; /* Zomato Red */
+            --secondary: #1c1c1c;
+            --bg: #f8f8f8;
+            --green: #24963f; /* Rating Green */
             --white: #ffffff;
+            --shadow: 0 2px 8px rgba(0,0,0,0.1);
         }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', sans-serif; }
+        body { background-color: var(--bg); padding-bottom: 80px; }
+
+        /* HEADER */
+        header { background: var(--white); padding: 15px; position: sticky; top: 0; z-index: 999; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
+        .logo-row { display: flex; justify-content: space-between; align-items: center; }
+        .logo { font-size: 1.4rem; font-weight: 900; color: var(--secondary); font-style: italic; }
+        .logo span { color: var(--primary); }
+        .location { font-size: 0.8rem; color: #666; display: flex; align-items: center; margin-top: 5px; }
         
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: var(--cream);
-            color: var(--black);
-            line-height: 1.6;
+        /* SEARCH BAR LOOKALIKE */
+        .search-bar {
+            background: #f2f2f2;
+            padding: 10px 15px;
+            border-radius: 8px;
+            margin-top: 10px;
+            color: #888;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
         }
 
-        /* --- HEADER --- */
-        header {
-            background-color: var(--dark-red);
-            color: var(--gold);
-            text-align: center;
-            padding: 20px 10px;
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.3);
-        }
-        header h1 { margin: 0; font-size: 1.8rem; letter-spacing: 1px; }
-        header p { margin: 5px 0 0; color: var(--white); font-size: 0.9rem; }
+        /* TABS (Delivery vs Dining) */
+        .tabs { display: flex; background: var(--white); padding: 10px 0; border-bottom: 1px solid #eee; }
+        .tab { flex: 1; text-align: center; padding: 10px; color: #666; font-weight: 600; cursor: pointer; }
+        .tab.active { color: var(--primary); border-bottom: 3px solid var(--primary); }
+        .tab img { width: 25px; display: block; margin: 0 auto 5px; }
 
-        /* --- HERO SECTION (Photo Area) --- */
-        .hero {
-            background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80'); /* Dummy luxury food image */
-            background-size: cover;
-            background-position: center;
-            color: var(--white);
-            padding: 80px 20px;
-            text-align: center;
-        }
-        .hero h2 { font-size: 2rem; margin-bottom: 10px; color: var(--gold); }
-        .btn {
-            display: inline-block;
-            background-color: var(--gold);
-            color: var(--black);
-            padding: 12px 25px;
-            text-decoration: none;
-            font-weight: bold;
-            border-radius: 5px;
-            margin-top: 20px;
-            text-transform: uppercase;
-        }
+        /* CONTENT AREA */
+        .container { padding: 15px; display: none; animation: fadeIn 0.5s; }
+        .container.active { display: block; }
 
-        /* --- SECTIONS --- */
-        .container { padding: 40px 20px; max-width: 800px; margin: auto; }
-        .section-title {
-            text-align: center;
-            color: var(--dark-red);
-            font-size: 1.8rem;
-            margin-bottom: 30px;
-            border-bottom: 2px solid var(--gold);
-            display: inline-block;
+        /* FOOD CARDS (Menu) */
+        .food-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 15px; }
+        .food-card {
+            background: var(--white);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            position: relative;
         }
-        .center-div { text-align: center; }
-
-        /* --- SERVICES CARDS --- */
-        .services { display: flex; flex-wrap: wrap; gap: 20px; justify-content: center; }
-        .card {
+        .food-img { height: 140px; width: 100%; object-fit: cover; }
+        .food-info { padding: 12px; }
+        .food-name { font-weight: 700; font-size: 0.95rem; color: #333; margin-bottom: 5px; }
+        .food-rating { 
+            background: var(--green); color: white; font-size: 0.7rem; padding: 2px 5px; 
+            border-radius: 4px; display: inline-block; margin-bottom: 5px; 
+        }
+        .food-price { font-size: 0.9rem; color: #555; }
+        .add-btn {
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
             background: var(--white);
             border: 1px solid #ddd;
-            border-radius: 8px;
-            width: 100%;
-            max-width: 300px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-            overflow: hidden;
+            color: var(--primary);
+            padding: 5px 15px;
+            border-radius: 5px;
+            font-weight: bold;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            cursor: pointer;
         }
-        .card h3 { background: var(--dark-red); color: var(--white); margin: 0; padding: 15px; }
-        .card p { padding: 15px; color: #555; }
+        .add-btn:active { background: #f0f0f0; transform: scale(0.95); }
 
-        /* --- MENU HIGHLIGHTS --- */
-        .menu-list { list-style: none; padding: 0; text-align: left; }
-        .menu-item {
-            background: var(--white);
-            margin-bottom: 10px;
+        /* DINING / BOOKING UI */
+        .dining-hero {
+            width: 100%; height: 200px; object-fit: cover; border-radius: 12px; margin-bottom: 20px;
+        }
+        .form-group { margin-bottom: 15px; }
+        .form-group label { font-size: 0.85rem; color: #666; display: block; margin-bottom: 5px; }
+        .form-control {
+            width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 8px; font-size: 1rem; outline: none;
+        }
+        .book-btn {
+            width: 100%; background: var(--primary); color: white; border: none; padding: 15px;
+            border-radius: 8px; font-size: 1rem; font-weight: bold; cursor: pointer;
+        }
+
+        /* FLOATING CART (Swiggy Style) */
+        .cart-bar {
+            position: fixed; bottom: 15px; left: 15px; right: 15px;
+            background: #60b246; /* Swiggy Green */
+            color: white;
             padding: 15px;
-            border-left: 5px solid var(--gold);
+            border-radius: 10px;
             display: flex;
             justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            z-index: 1000;
+            display: none; /* Hidden initially */
         }
-        .price { font-weight: bold; color: var(--dark-red); }
+        .cart-info h4 { font-size: 0.9rem; margin: 0; }
+        .cart-info span { font-size: 0.75rem; opacity: 0.9; }
+        .checkout-btn { font-weight: bold; display: flex; align-items: center; gap: 5px; cursor: pointer; }
 
-        /* --- FOOTER --- */
-        footer {
-            background-color: var(--black);
-            color: var(--white);
-            text-align: center;
-            padding: 30px 20px;
-            font-size: 0.9rem;
-        }
-        .contact-info p { margin: 5px 0; }
-        .map-btn {
-            background-color: #4CAF50; /* Google Maps Green */
-            color: white;
-            padding: 10px 20px;
-            text-decoration: none;
-            border-radius: 5px;
-            display: inline-block;
-            margin-top: 10px;
-        }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
     </style>
 </head>
 <body>
 
     <header>
-        <h1>SHARDA DININGS</h1>
-        <p>Restaurant | Banquet | Rooms</p>
+        <div class="logo-row">
+            <div class="logo">Sharda<span>Dinings</span></div>
+            <i class="fas fa-user-circle" style="font-size: 1.5rem; color: #ccc;"></i>
+        </div>
+        <div class="location">
+            <i class="fas fa-map-marker-alt" style="color: var(--primary); margin-right: 5px;"></i>
+            Rajendra Nagar, Gorakhpur
+        </div>
+        <div class="search-bar">
+            <i class="fas fa-search" style="margin-right: 10px;"></i> Search "Butter Chicken" or "Banquet"
+        </div>
     </header>
 
-    <div class="hero">
-        <h2>Experience the Taste of Royalty</h2>
-        <p>Gorakhpur's finest destination for Family Dining & Celebrations.</p>
-        <a href="tel:+918726827777" class="btn">📞 Call to Book Table</a>
-    </div>
-
-    <div class="container">
-        <div class="center-div">
-            <h2 class="section-title">Welcome</h2>
-            <p>Located in the heart of Gorakhpur, <strong>Sharda Dinings</strong> offers a perfect blend of delicious Multi-Cuisine food and a premium ambience. Whether it's a family dinner, a wedding party, or a comfortable stay, we serve you with warmth.</p>
+    <div class="tabs">
+        <div class="tab active" onclick="switchTab('delivery')">
+            <i class="fas fa-motorcycle"></i><br>Order Food
+        </div>
+        <div class="tab" onclick="switchTab('dining')">
+            <i class="fas fa-chair"></i><br>Book Table
         </div>
     </div>
 
-    <div class="container" style="background-color: #fff;">
-        <div class="center-div"><h2 class="section-title">Our Services</h2></div>
-        <div class="services">
-            <div class="card">
-                <div class="center-div" style="font-size:30px; padding-top:10px;">🍽️</div>
-                <h3>Fine Dining</h3>
-                <p>North Indian, Chinese, Mughlai & Continental cuisines. Famous for our Fusion dishes and Buffet spread.</p>
+    <div id="delivery" class="container active">
+        <h3 style="margin-bottom: 15px; color: #444;">Recommended for you</h3>
+        
+        <div class="food-grid">
+            <div class="food-card">
+                <img src="https://t4.ftcdn.net/jpg/05/81/98/66/360_F_581986641_sZp3v9e2e7tD7w5q4f6b5e8c9a0b1c2d.jpg" class="food-img">
+                <div class="food-info">
+                    <div class="food-name">Butter Chicken</div>
+                    <div class="food-rating">★ 4.5</div>
+                    <div class="food-price">₹380</div>
+                    <button class="add-btn" onclick="addToCart('Butter Chicken', 380)">ADD</button>
+                </div>
             </div>
-            <div class="card">
-                <div class="center-div" style="font-size:30px; padding-top:10px;">🎉</div>
-                <h3>Banquet Hall</h3>
-                <p>Spacious AC hall for Weddings, Birthday Parties, and Corporate Meetings. Capacity for large groups.</p>
+
+            <div class="food-card">
+                <img src="https://t3.ftcdn.net/jpg/03/62/02/26/360_F_362022640_2w2w2w2w2w2w2w2w2w2w2w2w2w2w2w2.jpg" class="food-img">
+                <div class="food-info">
+                    <div class="food-name">Paneer Tikka</div>
+                    <div class="food-rating">★ 4.2</div>
+                    <div class="food-price">₹290</div>
+                    <button class="add-btn" onclick="addToCart('Paneer Tikka', 290)">ADD</button>
+                </div>
             </div>
-            <div class="card">
-                <div class="center-div" style="font-size:30px; padding-top:10px;">🛏️</div>
-                <h3>Luxury Rooms</h3>
-                <p>Clean and comfortable rooms for a relaxing stay with 24/7 service and amenities.</p>
+
+            <div class="food-card">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5d/Chicken_65_%28Dish%29.jpg/1200px-Chicken_65_%28Dish%29.jpg" class="food-img">
+                <div class="food-info">
+                    <div class="food-name">Chicken 65</div>
+                    <div class="food-rating">★ 4.0</div>
+                    <div class="food-price">₹320</div>
+                    <button class="add-btn" onclick="addToCart('Chicken 65', 320)">ADD</button>
+                </div>
+            </div>
+
+             <div class="food-card">
+                <img src="https://www.vegrecipesofindia.com/wp-content/uploads/2021/07/hakka-noodles-1.jpg" class="food-img">
+                <div class="food-info">
+                    <div class="food-name">Veg Hakka Noodles</div>
+                    <div class="food-rating">★ 4.1</div>
+                    <div class="food-price">₹180</div>
+                    <button class="add-btn" onclick="addToCart('Veg Hakka Noodles', 180)">ADD</button>
+                </div>
             </div>
         </div>
+        <br><br>
+        <p style="text-align:center; color:#999; font-size:0.8rem;">More items available at restaurant...</p>
     </div>
 
-    <div class="container">
-        <div class="center-div"><h2 class="section-title">Menu Highlights</h2></div>
-        <ul class="menu-list">
-            <li class="menu-item"><span>🍲 Butter Chicken (Special)</span> <span class="price">Best Seller</span></li>
-            <li class="menu-item"><span>🥘 Paneer Lababdar</span> <span class="price">Rec.</span></li>
-            <li class="menu-item"><span>🍜 Hakka Noodles (Veg/Non-Veg)</span> <span class="price">Tasty</span></li>
-            <li class="menu-item"><span>🍧 Special Desserts</span> <span class="price">Sweet</span></li>
-        </ul>
-        <div class="center-div" style="margin-top:20px;">
-            <i>* Full Menu Available at Restaurant</i>
+    <div id="dining" class="container">
+        <img src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=80" class="dining-hero">
+        
+        <div style="display:flex; gap:10px; overflow-x:auto; margin-bottom:20px;">
+             <span style="background:#f0f0f0; padding:5px 10px; border-radius:5px; font-size:0.8rem;">AC Banquet</span>
+             <span style="background:#f0f0f0; padding:5px 10px; border-radius:5px; font-size:0.8rem;">Rooms</span>
+             <span style="background:#f0f0f0; padding:5px 10px; border-radius:5px; font-size:0.8rem;">Buffet</span>
+        </div>
+
+        <h2 style="color:var(--secondary);">Book a Table</h2>
+        <p style="color:#666; margin-bottom:20px; font-size:0.9rem;">Confirm your reservation instantly via WhatsApp.</p>
+
+        <div class="form-group">
+            <label>Your Name</label>
+            <input type="text" id="bookName" class="form-control" placeholder="e.g. Amit Kumar">
+        </div>
+        <div class="form-group">
+            <label>Guests & Date</label>
+            <div style="display:flex; gap:10px;">
+                <select id="bookGuests" class="form-control">
+                    <option>2 Guests</option>
+                    <option>4 Guests</option>
+                    <option>6+ Guests</option>
+                    <option>Banquet Party</option>
+                </select>
+                <input type="date" id="bookDate" class="form-control">
+            </div>
+        </div>
+        <button class="book-btn" onclick="submitBooking()">Reserve Table <i class="fas fa-arrow-right"></i></button>
+
+        <div style="margin-top:30px;">
+            <h4 style="margin-bottom:10px;">Location</h4>
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3562.363339686384!2d83.366667!3d26.758333!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMjbCsDQ1JzMwLjAiTiA4M8KwMjInMDAuMCJF!5e0!3m2!1sen!2sin!4v1625555555555" width="100%" height="200" style="border:0; border-radius:10px;" allowfullscreen="" loading="lazy"></iframe>
         </div>
     </div>
 
-    <div class="container" style="background-color: var(--dark-red); color: white; border-radius: 10px;">
-        <div class="center-div">
-            <h2>⭐⭐⭐⭐⭐</h2>
-            <p>"Great place for large groups. The food quality is amazing and the staff is very polite."</p>
-            <p><strong>- Happy Customer (Zomato Review)</strong></p>
+    <div class="cart-bar" id="cartBar" onclick="checkoutWhatsApp()">
+        <div class="cart-info">
+            <h4 id="itemCount">0 Items</h4>
+            <span>Total: ₹<span id="totalPrice">0</span></span>
+        </div>
+        <div class="checkout-btn">
+            Place Order <i class="fab fa-whatsapp"></i>
         </div>
     </div>
 
-    <footer>
-        <h3>Visit Us Today</h3>
-        <div class="contact-info">
-            <p>📍 <strong>Address:</strong> Opp. Kust Seva Ashram, NH 29, Rajendra Nagar, Gorakhpur - 273015</p>
-            <p>📞 <strong>Phone:</strong> +91 87268 27777</p>
-            <p>⏰ <strong>Open:</strong> 11:00 AM - 11:00 PM (Daily)</p>
-        </div>
-        <br>
-        <a href="https://www.google.com/maps/search/?api=1&query=Sharda+Dinings+Gorakhpur" class="map-btn" target="_blank">📍 Open in Google Maps</a>
-        <p style="margin-top:30px; font-size:0.8rem; opacity:0.7;">© 2025 Sharda Dinings. All rights reserved.</p>
-    </footer>
+    <script>
+        // Tab Switching Logic
+        function switchTab(tabName) {
+            document.querySelectorAll('.container').forEach(div => div.classList.remove('active'));
+            document.querySelectorAll('.tab').forEach(tab => tab.classList.remove('active'));
+            
+            document.getElementById(tabName).classList.add('active');
+            event.currentTarget.classList.add('active');
+        }
+
+        // Cart Logic
+        let cart = [];
+        let total = 0;
+
+        function addToCart(item, price) {
+            cart.push({ item, price });
+            total += price;
+            updateCartUI();
+        }
+
+        function updateCartUI() {
+            if (cart.length > 0) {
+                document.getElementById('cartBar').style.display = 'flex';
+                document.getElementById('itemCount').innerText = cart.length + " Items";
+                document.getElementById('totalPrice').innerText = total;
+            }
+        }
+
+        function checkoutWhatsApp() {
+            let msg = "Hello Sharda Dinings, I want to order food:%0A";
+            cart.forEach((i, index) => {
+                msg += (index + 1) + ". " + i.item + " - ₹" + i.price + "%0A";
+            });
+            msg += "%0A*Total Bill: ₹" + total + "*";
+            
+            window.open("https://wa.me/918726827777?text=" + msg, '_blank');
+        }
+
+        function submitBooking() {
+            let name = document.getElementById('bookName').value;
+            let guests = document.getElementById('bookGuests').value;
+            let date = document.getElementById('bookDate').value;
+
+            if (!name || !date) { alert("Please fill details"); return; }
+
+            let msg = "Table Booking Request:%0AName: " + name + "%0AGuests: " + guests + "%0ADate: " + date;
+            window.open("https://wa.me/918726827777?text=" + msg, '_blank');
+        }
+    </script>
 
 </body>
 </html>
